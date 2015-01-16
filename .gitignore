@@ -1,0 +1,18 @@
+# Dependencies
+/vendor/
+
+# Temporary directories
+/app/bootstrap.php.cache
+/app/cache/*
+!/app/cache/.gitkeep
+/app/logs/*
+!/app/logs/.gitkeep
+
+# Configuration files
+/app/config/parameters.yml
+
+# bin
+/bin
+
+# web
+/web/bundles/
