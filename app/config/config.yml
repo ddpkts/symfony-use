@@ -27,13 +27,8 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
-    #java: /usr/bin/java
     filters:
         cssrewrite: ~
-        #closure:
-        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 doctrine:
     dbal:
@@ -44,20 +39,61 @@ doctrine:
         user: "%database_user%"
         password: "%database_password%"
         charset: UTF8
-        # if using pdo_sqlite as your database driver:
-        # 1. add the path in parameters.yml
-        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        # 2. Uncomment database_path in parameters.yml.dist
-        # 3. Uncomment next line:
-        # path: "%database_path%"
-
+        types:
+            json: Sonata\Doctrine\Types\JsonType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+                mappings:
+                    DdpktsCmsBundle: ~
+                    SonataUserBundle: ~
 
+#
+# user
+#
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Ddpkts\UserBundle\Entity\User
+    user_class: Ddpkts\CmsBundle\Entity\User
+
+    group:
+        group_class: Ddpkts\CmsBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+
     service:
+        user_manager: sonata.user.orm.user_manager
         mailer: fos_user.mailer.noop
+
+sonata_user:
+    security_acl: true
+    manager_type: orm
+    class:
+        user: Ddpkts\CmsBundle\Entity\User
+        group: Ddpkts\CmsBundle\Entity\Group
+
+#
+# user ends
+#
+
+#
+# admin
+#
+sonata_doctrine_orm_admin:
+    entity_manager: ~
+
+sonata_admin:
+#    title: title
+#    title_logo: bundles/sonataadmin/logo_title.png
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.user.block.menu:
+        sonata.user.block.account:
+
+#
+# admin ends
+#

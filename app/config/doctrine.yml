@@ -1,8 +1,8 @@
 # File: app/config/doctrine.yml
 doctrine:
     dbal:
-        driver: pdo_mysql
-        host: 127.0.0.1
+        driver: %database_driver%
+        host: %database_host%
         port: ~
         dbname: %database_name%
         user: %database_user%

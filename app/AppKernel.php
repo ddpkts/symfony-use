@@ -17,7 +17,15 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             // user
             new FOS\UserBundle\FOSUserBundle(),
-            new Ddpkts\UserBundle\DdpktsUserBundle(),
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            // sonata
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            // cms
+            new Ddpkts\CmsBundle\DdpktsCmsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
